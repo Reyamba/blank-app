@@ -297,7 +297,7 @@ San Andres,2019,Q4,2019-10-01,16.47,16.50,20.50,78
 San Andres,2020,Q1,2020-01-01,16.07,20.00,24.00,78
 San Andres,2020,Q2,2020-04-01,16.10,24.00,28.00,78
 San Andres,2020,Q3,2020-07-01,16.05,25.50,29.50,78
-San Andres,2020,Q4,2020-10-01,16.20,28.50,32.50,78
+San Andres,2020,Q4,2020-10-01,16.20,28.00,32.50,78
 San Andres,2021,Q1,2021-01-01,17.02,31.00,35.00,78
 San Andres,2021,Q2,2021-04-01,17.01,34.00,38.00,78
 San Andres,2021,Q3,2021-07-01,17.11,35.50,39.50,78
@@ -600,7 +600,7 @@ def main_page():
    """Displays the single-barangay data editor,
 visualization, and ARIMA forecast."""
     
-   # FIX: st.title string was split across lines, causing SyntaxError. Merged into one line.
+   # st.title string fixed in previous step
    st.title(":coconut: Barangay Production Analysis & Forecasting")
    st.markdown("---")
     
@@ -616,8 +616,8 @@ visualization, and ARIMA forecast."""
 # Filtering
    st.sidebar.header("Barangay Selection")
    selected_barangay = st.sidebar.selectbox(
-       "Select
-# Barangay for Analysis:",
+       # FIX: Combined split string into one line
+       "Select Barangay for Analysis:", 
        options=barangays,
        key='barangay_select'
     )
@@ -1099,8 +1099,7 @@ Production & Price Dashboard")
 # Navigation
    st.sidebar.title("Navigation")
    page = st.sidebar.radio(
-       "Select a
-# Page",
+       "Select a Page",
        ("Barangay Forecast & Analysis", "All Barangays
 Comparison")
     )
