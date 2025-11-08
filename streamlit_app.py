@@ -452,8 +452,8 @@ forecast_end_year, series_name):
 # String)
    """
    if data_series.empty or len(data_series) < 5:
-       return None, f"Error: Insufficient data for {series_name} (need at least 5
-quarters).", "N/A"
+       # FIX: Combined the f-string onto a single line to resolve the SyntaxError
+       return None, f"Error: Insufficient data for {series_name} (need at least 5 quarters).", "N/A"
         
    n_test = 4
    mape_str = "N/A (Not enough data points for validation)"
