@@ -600,8 +600,8 @@ def main_page():
    """Displays the single-barangay data editor,
 visualization, and ARIMA forecast."""
     
-   st.title(":coconut: Barangay Production Analysis &
-Forecasting")
+   # FIX: st.title string was split across lines, causing SyntaxError. Merged into one line.
+   st.title(":coconut: Barangay Production Analysis & Forecasting")
    st.markdown("---")
     
    # Use data from
