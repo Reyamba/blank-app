@@ -746,8 +746,8 @@ last_historical_date is not None else pd.to_datetime('2025-10-01')
 # Append to session state
                    st.session_state['df_data'] = pd.concat([st.session_state['df_data'],
 new_row_df], ignore_index=True)
-                   st.success(f"New data point added for **{new_barangay}** on
-**{new_period_dt.strftime('%Y-%m-%d')}**. Rerunning app...")
+                   # FIX: Consolidated the st.success f-string onto one line
+                   st.success(f"New data point added for **{new_barangay}** on **{new_period_dt.strftime('%Y-%m-%d')}**. Rerunning app...")
                    st.rerun() # Rerun to update plots and forecasts
  
    # --- C.
