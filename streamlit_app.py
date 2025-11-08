@@ -12,8 +12,9 @@ warnings.filterwarnings("ignore")
  
 # --- 1. Data Loading and Initial Preprocessing ---
 # Data snippet provided by the user from the uploaded file
-CSV_CONTENT = """Barangay,Year,Quarter,Period,Copra_Production
-(MT),Farmgate Price (PHP/kg),Millgate Price (PHP/kg),Area (hectares)
+# FIX: The CSV header was spread across two lines. It has been merged into one line 
+# to resolve the pandas.errors.ParserError.
+CSV_CONTENT = """Barangay,Year,Quarter,Period,Copra_Production (MT),Farmgate Price (PHP/kg),Millgate Price (PHP/kg),Area (hectares)
 Poblacion,2015,Q1,2015-01-01,32.17,24.50,28.50,39
 Poblacion,2015,Q2,2015-04-01,32.15,23.00,27.00,39
 Poblacion,2015,Q3,2015-07-01,32.18,21.00,25.00,39
