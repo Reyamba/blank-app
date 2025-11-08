@@ -642,12 +642,16 @@ def main_page():
             new_copra = col_c.number_input("Copra Production (MT)", min_value=0.0, format="%.2f")
             new_farmgate = col_f.number_input("Farmgate Price (PHP/kg)", min_value=0.0, format="%.2f")
             new_millgate = col_m.number_input("Millgate Price (PHP/kg)", min_value=0.0, format="%.2f")
-            # New Area Input (using integer format since values are integers)
+            
+            # --- FIX: Ensure the default value matches the integer format ---
+            # Extract the last known Area value and explicitly cast it to integer (0 if empty)
+            default_area_value = int(df_barangay_final['Area (hectares)'].iloc[-1]) if not df_barangay_final.empty else 0
+
             new_area = col_a.number_input(
                 "Area (hectares)", 
-                min_value=0.0, 
-                format="%.0f",
-                value=df_barangay_final['Area (hectares)'].iloc[-1] if not df_barangay_final.empty else 0.0
+                min_value=0, # Use integer minimum
+                format="%d", # Use integer format specifier
+                value=default_area_value # Use the explicitly cast integer value
             ) 
  
             submitted = st.form_submit_button("Add Data Point and Rerun Analysis")
