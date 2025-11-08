@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from statsmodels.tsa.arima.model import ARIMA
 from pandas.tseries.offsets import DateOffset
 import warnings
-from sklearn.metrics import mean_absolute_percentage_error
-as calculate_mape
+# FIX: Consolidated the import and alias onto a single line
+from sklearn.metrics import mean_absolute_percentage_error as calculate_mape
  
 # Suppress warnings from statsmodels, which are common in
 # Streamlit environments
@@ -101,7 +101,7 @@ Bunawan Brook,2024,Q3,2024-07-01,560.00,34.07,44.18,460
 Bunawan Brook,2024,Q4,2024-10-01,562.00,40.00,50.00,460
 Bunawan Brook,2025,Q1,2025-01-01,584.92,48.64,52.12,470
 Bunawan Brook,2025,Q2,2025-04-01,585.00,64.55,81.00,470
-Bunawan Brook,2025,Q3,2025-07-01,586.00,56.79,72.70,470
+Bunawan Brook,2025,Q3,2025-05-01,586.00,56.79,72.70,470
 Consuelo,2015,Q1,2015-01-01,115.50,24.50,28.50,119
 Consuelo,2015,Q2,2015-04-01,115.51,23.00,27.00,119
 Consuelo,2015,Q3,2015-07-01,114.51,21.00,25.00,119
