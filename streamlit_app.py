@@ -443,6 +443,10 @@ def plot_diagnostics(data_series, title):
     # 1. ADF Test
     # Drop NAs just in case, though the main series should be clean
     series_clean = data_series.dropna()
+    
+    if len(series_clean) < 1:
+        return "**Error:** Insufficient data for ADF test.", None
+
     adf_result = adfuller(series_clean)
     
     # Create the ADF result markdown string
@@ -794,19 +798,30 @@ def main_page():
 
     # --- NEW: Time Series Diagnostics (ADF, ACF, PACF) ---
     st.header("3. Time Series Diagnostics (ADF, ACF, PACF)")
-    st.markdown("Run the **Copra Production** series through the Augmented Dickey-Fuller (ADF) test to check for stationarity, and view Autocorrelation (ACF) and Partial Autocorrelation (PACF) plots for model identification. The ARIMA model uses $d=1$ (first difference) based on these diagnostics.")
+    st.markdown("Perform the **Augmented Dickey-Fuller (ADF) test** to check for stationarity, and view **Autocorrelation (ACF) and Partial Autocorrelation (PACF) plots** for model identification for all relevant metrics. Click on a section below to view the diagnostics.")
 
-    if not ts_production.empty and len(ts_production) > 12: # Ensure enough data points for meaningful diagnostics
-        adf_output, fig_diag = plot_diagnostics(ts_production, 'Copra_Production (MT)')
+    series_to_diagnose = {
+        'Copra_Production (MT)': ts_production,
+        'Farmgate Price (PHP/kg)': ts_farmgate,
+        'Millgate Price (PHP/kg)': ts_millgate,
+        'Area (hectares)': ts_area,
+    }
+    
+    min_data_points = 12
 
-        st.subheader("Augmented Dickey-Fuller Test for Stationarity")
-        # Display the formatted markdown result
-        st.markdown(adf_output)
+    for title, series in series_to_diagnose.items():
+        if not series.empty and len(series) > min_data_points:
+            with st.expander(f"Diagnostics for: **{title}**"):
+                adf_output, fig_diag = plot_diagnostics(series, title)
+                
+                st.subheader(f"ADF Test Results for {title}")
+                st.markdown(adf_output)
 
-        st.subheader("Time Series, ACF, and PACF Plots")
-        st.pyplot(fig_diag)
-    else:
-        st.warning("Not enough data points (need > 12 quarters) to perform meaningful time series diagnostics (ADF, ACF, PACF).")
+                st.subheader(f"ACF and PACF Plots for {title}")
+                st.pyplot(fig_diag)
+        else:
+             st.warning(f"Skipping diagnostics for **{title}**: Insufficient data points (need > {min_data_points} quarters).")
+
 
     # --- D. Forecasting (Renumbered to 4) ---
     st.header("4. ARIMA Forecasting (2026 - 2035)")
